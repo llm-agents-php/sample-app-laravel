@@ -1,66 +1,182 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# LLM Agents Sample App - Laravel edition
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This sample application demonstrates the practical implementation and usage patterns of the LLM Agents library.
 
-## About Laravel
+> For more information about the LLM Agents package and its capabilities, please refer to
+> the [LLM Agents documentation](https://github.com/llm-agents-php/agents).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+It provides a CLI interface to interact with various AI agents, showcasing the power and flexibility of the LLM Agents
+package.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+![image](https://github.com/user-attachments/assets/53104067-d3df-4983-8a59-435708f2b70c)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+- Multiple pre-configured AI agents with different capabilities
+- CLI interface for easy interaction with agents
+- Integration with OpenAI's GPT models
+- Database support for session persistence
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP 8.3 or higher
+- Composer
+- Git
+- OpenAI API key
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Quick Start with Docker
 
-## Laravel Sponsors
+The easiest way to run the app is using our pre-built Docker image.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**Follow these steps to get started:**
 
-### Premium Partners
+1. Make sure you have Docker installed on your system.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Create a `.env` file in the project root directory:
+
+```bash
+cp .env.example .env
+```
+
+and add your OpenAI API key to the `.env` file:
+
+```bash
+OPENAI_API_KEY=your_api_key_here
+```
+
+> Replace `<your_api_key>` with your OpenAI API key.
+
+3. Run the Docker container with the following command:
+
+```bash
+make up
+```
+
+4Once the container is running, you can interact with the app using the following command:
+
+## Usage
+
+### Chatting with Agents
+
+To start a chat session with an AI agent:
+
+1. Run the following command:
+
+**Using docker container**
+
+```bash
+make chat
+```
+
+2. You will see a list of available agents and their descriptions. Choose the desired agent by entering its number.
+
+![image](https://github.com/user-attachments/assets/3cd223a8-3ab0-4879-9e85-83539c93003f)
+
+3. After selecting an agent, you will see a message like this:
+
+![image](https://github.com/user-attachments/assets/0d18ca6c-9ee9-4942-b383-fc42abf18bc7)
+
+```bash
+************************************************************
+*     Run the following command to see the AI response     *
+************************************************************
+
+php artisan chat:session <session_uuid> -v
+```
+
+**Using docker container**
+
+```bash
+make bash
+```
+
+Then run the following command:
+
+```bash
+php artisan chat:session <session_uuid> -v
+```
+
+> Replace `<session_uuid>` with the actual session UUID.
+
+5. Copy the provided command and run it in a new terminal tab. This command will show the AI response to your message.
+
+![image](https://github.com/user-attachments/assets/1dfdfdd1-f69d-44af-afb2-807f9fa2da84)
+
+## Available CLI Commands
+
+The sample app provides several CLI commands for interacting with agents and managing the application:
+
+- `php artisan agent:list`: List all available agents
+- `php artisan tool:list`: List all available tools
+- `php artisan chat`: Start a new chat session
+- `php artisan chat:session <session-id>`: Continue an existing chat session
+
+Use the `-h` or `--help` option with any command to see more details about its usage.
+
+## Available Agents
+
+The sample app comes with several pre-configured agents, each designed for specific tasks:
+
+### Site Status Checker
+
+- **Key**: `site_status_checker`
+- **Description**: This agent specializes in checking the online status of websites. It can verify if a given URL is
+  accessible, retrieve basic information about the site, and provide insights on potential issues if a site is
+  offline.
+- **Capabilities**:
+    - Check site availability
+    - Retrieve DNS information
+    - Perform ping tests
+    - Provide troubleshooting steps for offline sites
+
+### Order Assistant
+
+- **Key**: `order_assistant`
+- **Description**: This agent helps customers with order-related questions. It can retrieve order information, check
+  delivery status, and provide customer support for e-commerce related queries.
+- **Capabilities**:
+    - Retrieve order numbers
+    - Check delivery dates
+    - Access customer profiles
+    - Provide personalized assistance based on customer age and preferences
+
+### Smart Home Control Assistant
+
+- **Key**: `smart_home_control`
+- **Description**: This agent manages and controls various smart home devices across multiple rooms, including
+  lights, thermostats, and TVs.
+- **Capabilities**:
+    - List devices in specific rooms
+    - Control individual devices (turn on/off, adjust settings)
+    - Retrieve device status and details
+    - Suggest energy-efficient settings
+
+### Code Review Agent
+
+- **Key**: `code_review`
+- **Description**: This agent specializes in reviewing code. It can analyze code files, provide feedback, and
+  suggest improvements.
+- **Capabilities**:
+    - List files in a project
+    - Read file contents
+    - Perform code reviews
+    - Submit review comments
+
+### Task Splitter
+
+- **Key**: `task_splitter`
+- **Description**: This agent analyzes project descriptions and breaks them down into structured task lists with
+  subtasks.
+- **Capabilities**:
+    - Retrieve project descriptions
+    - Create hierarchical task structures
+    - Assign task priorities
+    - Generate detailed subtasks
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This sample app is open-source software licensed under the MIT license.
