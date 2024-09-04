@@ -4,10 +4,18 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use LLM\Agents\Agent\AgentRegistry;
 use LLM\Agents\Agent\AgentRegistryInterface;
 use LLM\Agents\Agent\AgentRepositoryInterface;
+use LLM\Agents\AgentExecutor\ExecutorInterface;
+use LLM\Agents\AgentExecutor\ExecutorPipeline;
+use LLM\Agents\AgentExecutor\Interceptor\GeneratePromptInterceptor;
+use LLM\Agents\AgentExecutor\Interceptor\InjectModelInterceptor;
+use LLM\Agents\AgentExecutor\Interceptor\InjectOptionsInterceptor;
+use LLM\Agents\AgentExecutor\Interceptor\InjectResponseIntoPromptInterceptor;
+use LLM\Agents\AgentExecutor\Interceptor\InjectToolsInterceptor;
 use LLM\Agents\JsonSchema\Mapper\SchemaMapper;
 use LLM\Agents\LLM\ContextFactoryInterface;
 use LLM\Agents\LLM\OptionsFactoryInterface;
@@ -34,6 +42,18 @@ final class AgentsServiceProvider extends ServiceProvider
         $this->app->singleton(ContextFactoryInterface::class, ContextFactory::class);
 
         $this->app->singleton(SchemaMapperInterface::class, SchemaMapper::class);
+
+        $this->app->singleton(ExecutorInterface::class, static function (
+            Application $app,
+        ) {
+            return $app->make(ExecutorPipeline::class)->withInterceptor(
+                $app->make(GeneratePromptInterceptor::class),
+                $app->make(InjectModelInterceptor::class),
+                $app->make(InjectToolsInterceptor::class),
+                $app->make(InjectOptionsInterceptor::class),
+                $app->make(InjectResponseIntoPromptInterceptor::class),
+            );
+        });
     }
 
     public function boot(

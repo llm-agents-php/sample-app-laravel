@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Chat\ChatHistoryRepository;
+use App\Chat\PromptGenerator\SessionContextInjector;
 use App\Chat\SimpleChatService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -13,7 +14,6 @@ use LLM\Agents\Chat\ChatServiceInterface;
 use LLM\Agents\PromptGenerator\Interceptors\AgentMemoryInjector;
 use LLM\Agents\PromptGenerator\Interceptors\InstructionGenerator;
 use LLM\Agents\PromptGenerator\Interceptors\LinkedAgentsInjector;
-use LLM\Agents\PromptGenerator\Interceptors\SessionContextInjector;
 use LLM\Agents\PromptGenerator\Interceptors\UserPromptInjector;
 use LLM\Agents\PromptGenerator\PromptGeneratorPipeline;
 
