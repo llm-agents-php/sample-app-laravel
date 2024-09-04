@@ -7,7 +7,7 @@ namespace App\Models\ValueObject;
 use LLM\Agents\LLM\Prompt\Chat\Prompt;
 use Traversable;
 
-final class History implements \IteratorAggregate
+final class History implements \IteratorAggregate, \JsonSerializable
 {
     public static function fromString(string $value): self
     {

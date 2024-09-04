@@ -11,19 +11,19 @@ use LLM\Agents\Agent\SiteStatusChecker;
 
 return [
     'agents' => [
-        CodeReviewAgentFactory::class,
+//        CodeReviewAgentFactory::class,
         DeliveryAgentFactory::class,
         SmartHomeControlAgentFactory::class,
         TaskSplitterAgentFactory::class,
-         SiteStatusChecker\SiteStatusCheckerAgentFactory::class,
+        SiteStatusChecker\SiteStatusCheckerAgentFactory::class,
     ],
     'tools' => [
         \App\Agents\AgentsCaller\AskAgentTool::class,
 
         // Code Reviewer
-        \App\Agents\CodeReviewer\ListProjectTool::class,
-        \App\Agents\CodeReviewer\ReadFileTool::class,
-        \App\Agents\CodeReviewer\ReviewTool::class,
+//        \App\Agents\CodeReviewer\ListProjectTool::class,
+//        \App\Agents\CodeReviewer\ReadFileTool::class,
+//        \App\Agents\CodeReviewer\ReviewTool::class,
 
         // Delivery
         \App\Agents\Delivery\GetOrderNumberTool::class,

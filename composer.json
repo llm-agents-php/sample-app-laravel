@@ -7,11 +7,12 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.9",
+        "llm-agents/agent-site-status-checker": "^1.0",
+        "llm-agents/agent-symfony-console": "^1.0",
         "llm-agents/agents": "^1.1",
         "llm-agents/cli-chat": "^1.0",
         "llm-agents/json-schema-mapper": "^1.0",
         "llm-agents/openai-client": "^1.0",
-        "llm-agents/agent-site-status-checker": "^1.0",
         "openai-php/laravel": "^0.10.1"
     },
     "require-dev": {

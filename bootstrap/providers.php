@@ -6,4 +6,5 @@ return [
     App\Providers\SmartHomeServiceProvider::class,
     App\Providers\AgentsServiceProvider::class,
     App\Providers\AgentsChatServiceProvider::class,
+    LLM\Agents\Agent\SymfonyConsole\Integrations\Laravel\SymfonyConsoleServiceProvider::class,
 ];

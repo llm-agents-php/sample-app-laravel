@@ -54,8 +54,6 @@ final readonly class SimpleChatService implements ChatServiceInterface
             'title' => $agent->getDescription(),
         ]);
 
-        $session->save();
-
         return $session->getUuid();
     }
 
@@ -189,17 +187,38 @@ final readonly class SimpleChatService implements ChatServiceInterface
             ),
         );
 
-        $functionResult = $this->toolExecutor->execute($tool->name, $tool->arguments);
+        try {
+            $functionResult = $this->toolExecutor->execute($tool->name, $tool->arguments);
 
-        $this->eventDispatcher?->dispatch(
-            new \LLM\Agents\Chat\Event\ToolCallResult(
-                sessionUuid: $session->getUuid(),
+            $this->eventDispatcher?->dispatch(
+                new \LLM\Agents\Chat\Event\ToolCallResult(
+                    sessionUuid: $session->getUuid(),
+                    id: $tool->id,
+                    tool: $tool->name,
+                    result: $functionResult,
+                    createdAt: new \DateTimeImmutable(),
+                ),
+            );
+        } catch (\Throwable $e) {
+            $this->eventDispatcher?->dispatch(
+                new \LLM\Agents\Chat\Event\ToolCallResult(
+                    sessionUuid: $session->getUuid(),
+                    id: $tool->id,
+                    tool: $tool->name,
+                    result: \json_encode([
+                        'error' => $e->getMessage(),
+                    ]),
+                    createdAt: new \DateTimeImmutable(),
+                ),
+            );
+
+            return new ToolCallResultMessage(
                 id: $tool->id,
-                tool: $tool->name,
-                result: $functionResult,
-                createdAt: new \DateTimeImmutable(),
-            ),
-        );
+                content: [
+                    $e->getMessage(),
+                ],
+            );
+        }
 
         return new ToolCallResultMessage(
             id: $tool->id,
