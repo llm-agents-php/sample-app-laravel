@@ -1,6 +1,7 @@
 <?php
 
 return [
+    LLM\Agents\PromptGenerator\Integration\Laravel\PromptGeneratorServiceProvider::class,
     LLM\Agents\JsonSchema\Mapper\Integration\Laravel\SchemaMapperServiceProvider::class,
     App\Providers\AppServiceProvider::class,
     App\Providers\SmartHomeServiceProvider::class,
