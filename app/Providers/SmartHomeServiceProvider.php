@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Agents\SmartHomeControl\SmartHome\Devices\Light;
-use App\Agents\SmartHomeControl\SmartHome\Devices\SmartAppliance;
-use App\Agents\SmartHomeControl\SmartHome\Devices\Thermostat;
-use App\Agents\SmartHomeControl\SmartHome\Devices\TV;
-use App\Agents\SmartHomeControl\SmartHome\SmartHomeSystem;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use LLM\Agents\Agent\SmartHomeControl\SmartHome\Devices\Light;
+use LLM\Agents\Agent\SmartHomeControl\SmartHome\Devices\SmartAppliance;
+use LLM\Agents\Agent\SmartHomeControl\SmartHome\Devices\Thermostat;
+use LLM\Agents\Agent\SmartHomeControl\SmartHome\Devices\TV;
+use LLM\Agents\Agent\SmartHomeControl\SmartHome\SmartHomeSystem;
 use Psr\SimpleCache\CacheInterface;
 
 final class SmartHomeServiceProvider extends ServiceProvider

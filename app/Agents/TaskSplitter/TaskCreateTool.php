@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Agents\TaskSplitter;
 
-use App\Agents\PhpTool;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Storage;
+use LLM\Agents\Tool\PhpTool;
 use Ramsey\Uuid\Uuid;
 
 /**
- * @extends  PhpTool<TaskCreateInput>
+ * @extends PhpTool<TaskCreateInput>
  */
 final class TaskCreateTool extends PhpTool
 {

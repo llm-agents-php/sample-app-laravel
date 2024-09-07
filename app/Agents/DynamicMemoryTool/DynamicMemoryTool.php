@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Agents\DynamicMemoryTool;
 
-use App\Agents\PhpTool;
 use LLM\Agents\Solution\MetadataType;
 use LLM\Agents\Solution\SolutionMetadata;
+use LLM\Agents\Tool\PhpTool;
 use Ramsey\Uuid\Uuid;
 
 final class DynamicMemoryTool extends PhpTool

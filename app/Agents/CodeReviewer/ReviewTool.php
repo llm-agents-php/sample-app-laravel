@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Agents\CodeReviewer;
 
-use App\Agents\PhpTool;
+use LLM\Agents\Tool\PhpTool;
 
 /**
  * @extends PhpTool<ReviewInput>

@@ -3,11 +3,10 @@
 declare(strict_types=1);
 
 
-use App\Agents\CodeReviewer\CodeReviewAgentFactory;
 use App\Agents\Delivery\DeliveryAgentFactory;
-use App\Agents\SmartHomeControl\SmartHomeControlAgentFactory;
 use App\Agents\TaskSplitter\TaskSplitterAgentFactory;
 use LLM\Agents\Agent\SiteStatusChecker;
+use LLM\Agents\Agent\SmartHomeControl\SmartHomeControlAgentFactory;
 
 return [
     'agents' => [
@@ -36,10 +35,10 @@ return [
 
 
         // Smart Home Control
-        \App\Agents\SmartHomeControl\ControlDeviceTool::class,
-        \App\Agents\SmartHomeControl\GetDeviceDetailsTool::class,
-        \App\Agents\SmartHomeControl\GetRoomListTool::class,
-        \App\Agents\SmartHomeControl\ListRoomDevicesTool::class,
+        \LLM\Agents\Agent\SmartHomeControl\ControlDeviceTool::class,
+        \LLM\Agents\Agent\SmartHomeControl\GetDeviceDetailsTool::class,
+        \LLM\Agents\Agent\SmartHomeControl\GetRoomListTool::class,
+        \LLM\Agents\Agent\SmartHomeControl\ListRoomDevicesTool::class,
 
         // Task splitter
         \App\Agents\TaskSplitter\TaskCreateTool::class,

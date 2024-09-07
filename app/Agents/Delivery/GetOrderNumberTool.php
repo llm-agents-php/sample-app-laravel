@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Agents\Delivery;
 
-use App\Agents\PhpTool;
+use LLM\Agents\Tool\PhpTool;
 
 /**
- * @extends  PhpTool<OrderNumberInput>
+ * @extends PhpTool<OrderNumberInput>
  */
 final class GetOrderNumberTool extends PhpTool
 {
