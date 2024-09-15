@@ -229,4 +229,14 @@ final readonly class SimpleChatService implements ChatServiceInterface
             content: [$functionResult],
         );
     }
+
+    public function getLatestSession(): ?SessionInterface
+    {
+        return Session::latest()->first();
+    }
+
+    public function getLatestSessions(int $limit = 3): array
+    {
+        return Session::latest()->limit($limit)->get();
+    }
 }

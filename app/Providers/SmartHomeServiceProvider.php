@@ -4,23 +4,29 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Agents\SmartHome\DeviceStateManager;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use LLM\Agents\Agent\SmartHomeControl\SmartHome\Devices\Light;
 use LLM\Agents\Agent\SmartHomeControl\SmartHome\Devices\SmartAppliance;
 use LLM\Agents\Agent\SmartHomeControl\SmartHome\Devices\Thermostat;
 use LLM\Agents\Agent\SmartHomeControl\SmartHome\Devices\TV;
+use LLM\Agents\Agent\SmartHomeControl\SmartHome\DeviceStateRepositoryInterface;
+use LLM\Agents\Agent\SmartHomeControl\SmartHome\DeviceStateStorageInterface;
 use LLM\Agents\Agent\SmartHomeControl\SmartHome\SmartHomeSystem;
-use Psr\SimpleCache\CacheInterface;
 
 final class SmartHomeServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singleton(SmartHomeSystem::class, static function (Application $app) {
-            $cache = $app->make(CacheInterface::class);
+        $this->app->singleton(DeviceStateStorageInterface::class, DeviceStateManager::class);
+        $this->app->singleton(DeviceStateRepositoryInterface::class, DeviceStateManager::class);
 
-            $smartHome = new SmartHomeSystem($cache);
+        $this->app->singleton(SmartHomeSystem::class, static function (Application $app) {
+            $smartHome = new SmartHomeSystem(
+                stateStorage: $app->make(DeviceStateStorageInterface::class),
+                stateRepository: $app->make(DeviceStateRepositoryInterface::class),
+            );
 
             // Living Room Devices
             $livingRoomAirConditioner = new SmartAppliance(

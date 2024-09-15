@@ -57,4 +57,14 @@ final class Session extends Model implements SessionInterface
     {
         return $this->trashed();
     }
+
+    public function setDescription(string $description): void
+    {
+        $this->title = $description;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->title;
+    }
 }
